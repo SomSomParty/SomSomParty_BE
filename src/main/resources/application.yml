@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: ${DB_URL}
-#    url: jdbc:mysql://localhost:3306/acc
+    #    url: jdbc:mysql://localhost:3306/acc
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,3 +16,12 @@ spring:
         hbm2ddl:
           auto: update
         default_batch_fetch_size: 1000
+  cloud:
+    aws:
+      region: ${AWS_REGION}
+      access-key: ${AWS_ACCESS_KEY_ID}
+      secret-key: ${AWS_SECRET_ACCESS_KEY}
+      sqs:
+        queue-name: ${AWS_SQS_QUEUE_NAME}
+    stack:
+      auto: false
