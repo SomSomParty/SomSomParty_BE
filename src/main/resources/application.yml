@@ -16,3 +16,9 @@ spring:
         hbm2ddl:
           auto: update
         default_batch_fetch_size: 1000
+
+  data:
+    redis:
+#      host: ${elastiCache_endPoint}
+      host: 127.0.0.1
+      port: 6379

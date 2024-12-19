@@ -5,6 +5,7 @@ import com.acc.somsomparty.domain.Festival.dto.FestivalResponseDTO;
 import com.acc.somsomparty.domain.Festival.entity.Festival;
 
 import com.acc.somsomparty.domain.Festival.service.FestivalQueryService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +28,13 @@ public class FestivalController {
     public ResponseEntity<FestivalResponseDTO.FestivalPreViewDTO> getFestival(@PathVariable(name = "festivalId") Long festivalId) {
         Festival festival = festivalQueryService.getFestival(festivalId);
         return new ResponseEntity<>(FestivalConverter.festivalPreViewDTO(festival), HttpStatus.OK);
+    }
+
+    @Operation(summary = "축제 검색",     description = "축제 이름 또는 설명에서 해당 키워드가 포함된 축제들을 검색합니다.")
+    @GetMapping("/search")
+    public ResponseEntity<FestivalResponseDTO.FestivalPreViewListDTO> searchFestival(@RequestParam(defaultValue = "0") Long lastId,
+                                                                                     @RequestParam(defaultValue = "10") int limit,
+                                                                                     @RequestParam(name = "keyword") String keyword) {
+        return ResponseEntity.ok(festivalQueryService.searchFestival(lastId, limit, keyword));
     }
 }
