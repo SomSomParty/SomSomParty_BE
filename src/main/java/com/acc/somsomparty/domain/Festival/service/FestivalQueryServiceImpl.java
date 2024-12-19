@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,5 +52,13 @@ public class FestivalQueryServiceImpl implements FestivalQueryService {
                 .collect(Collectors.toList());
 
         return FestivalConverter.festivalPreViewListDTO(list, hasNext, lastId);
+    }
+
+    @Override
+    public List<Festival> getFestivalListByStartTime(LocalDate date) {
+        LocalDate today = LocalDate.now();
+        LocalDate tomorrow = today.plusDays(1);
+
+        return festivalRepository.findByStartDate(tomorrow);
     }
 }
