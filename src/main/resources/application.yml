@@ -16,3 +16,11 @@ spring:
         hbm2ddl:
           auto: update
         default_batch_fetch_size: 1000
+
+aws:
+  noti:
+    accessKey: ${NOTI_ACCESS_KEY}
+    secretKey: ${NOTI_SECRET_KEY}
+    region: ${NOTI_REGION}
+  sns:
+    application-arn: ${SNS_APP_ARN}

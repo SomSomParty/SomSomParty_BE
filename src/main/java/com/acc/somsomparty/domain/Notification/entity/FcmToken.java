@@ -1,5 +1,6 @@
-package com.acc.somsomparty.notification.entity;
+package com.acc.somsomparty.domain.Notification.entity;
 
+import com.acc.somsomparty.domain.Notification.enums.DeviceType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,7 +21,8 @@ public class FcmToken {
 
     private String fcmToken;    // fcm 토큰
 
-    private String deviceType;  // 디바이스 유형
+    @Enumerated(EnumType.STRING)
+    private DeviceType deviceType;  // 디바이스 유형
 
     @CreationTimestamp
     private LocalDateTime createdDate;  // fcm 토큰 생성 날짜
@@ -28,5 +30,5 @@ public class FcmToken {
     @UpdateTimestamp
     private LocalDateTime updatedDate;   // fcm 토큰 갱신 날짜
 
-    private String userId;  // user 정보
+    private Long userId;  // user 정보
 }
