@@ -14,6 +14,12 @@ public enum ErrorCode {
     PERMISSION_DENIED(HttpStatus.FORBIDDEN, "권한이 없습니다."),
     // Festival
     FESTIVAL_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 축제입니다."),
+    //Chatting
+    FAILED_MESSAGE_SAVE(HttpStatus.BAD_REQUEST,"메세지 저장에 실패했습니다."),
+    FAILED_MESSAGE_GET(HttpStatus.BAD_REQUEST, "메세지 조회에 실패했습니다."),
+    CHATROOM_NOT_FOUND(HttpStatus.BAD_REQUEST,"존재하지 않는 채팅방입니다."),
+    ALREADY_JOINED_CHATROOM(HttpStatus.CONFLICT,"이미 참여 중인 채팅방입니다."),
+    USER_CHATROOM_NOT_FOUND(HttpStatus.NOT_FOUND,"참여 중인 채팅방이 아닙니다."),
     // Queue
     QUEUE_ALREADY_REGISTERED_USER(HttpStatus.CONFLICT, "이미 큐에 등록된 유저입니다."),
     LOCK_ACQUISITION_FAILED(HttpStatus.BAD_REQUEST, "락을 획득할 수 없습니다."),

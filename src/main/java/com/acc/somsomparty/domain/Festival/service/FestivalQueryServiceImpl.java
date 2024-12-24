@@ -1,9 +1,11 @@
 package com.acc.somsomparty.domain.Festival.service;
 
 import com.acc.somsomparty.domain.Festival.converter.FestivalConverter;
+import com.acc.somsomparty.domain.Festival.dto.FestivalRequestDTO;
 import com.acc.somsomparty.domain.Festival.dto.FestivalResponseDTO;
 import com.acc.somsomparty.domain.Festival.entity.Festival;
 import com.acc.somsomparty.domain.Festival.repository.FestivalRepository;
+import com.acc.somsomparty.domain.chatting.service.ChattingService;
 import com.acc.somsomparty.global.exception.CustomException;
 import com.acc.somsomparty.global.exception.error.ErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,11 +22,12 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class FestivalQueryServiceImpl implements FestivalQueryService {
     private final FestivalRepository festivalRepository;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper;
+    private final ChattingService chattingService;
 
     @Override
     public FestivalResponseDTO.FestivalPreViewListDTO getFestivalList(Long lastId, int limit) {
@@ -65,6 +68,15 @@ public class FestivalQueryServiceImpl implements FestivalQueryService {
         redisTemplate.opsForValue().set(cacheKey, responseDTO, 5, TimeUnit.MINUTES);
 
         return responseDTO;
+    }
+
+    @Override
+    public Festival save(FestivalRequestDTO festivalRequestDTO) {
+        Festival festival = new Festival(festivalRequestDTO.getTitle(),festivalRequestDTO.getDescription(),
+                festivalRequestDTO.getStartDate(), festivalRequestDTO.getEndDate());
+        Festival savedFestival = festivalRepository.save(festival);
+        chattingService.publishCreateChatRoom(savedFestival);
+        return savedFestival;
     }
 
     private FestivalResponseDTO.FestivalPreViewListDTO generateFestivalPreviewListDTO(List<Festival> festivals, int limit) {
