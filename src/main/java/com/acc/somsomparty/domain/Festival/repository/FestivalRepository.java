@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface FestivalRepository extends JpaRepository<Festival, Long> {
     Page<Festival> findAllByOrderByCreatedAtDesc(Pageable pageable);
@@ -17,6 +16,6 @@ public interface FestivalRepository extends JpaRepository<Festival, Long> {
             "OR f.descriptionLower LIKE CONCAT('%', :keyword, '%')) " +
             "AND (:lastId = 0 OR f.id < :lastId) " +
             "ORDER BY f.id DESC")
-    List<Festival> searchByKeyword(Long lastId, int limit, String keyword);
+    Page<Festival> searchByKeyword(Long lastId, String keyword, Pageable pageable);
 
 }

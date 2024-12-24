@@ -58,7 +58,8 @@ public class FestivalQueryServiceImpl implements FestivalQueryService {
         }
 
         // 캐시에 없으면 DB에서 검색
-        List<Festival> festivals = festivalRepository.searchByKeyword(lastId, limit, keyword.toLowerCase());
+        PageRequest pageRequest = PageRequest.of(0, limit + 1);
+        List<Festival> festivals = festivalRepository.searchByKeyword(lastId, keyword.toLowerCase(), pageRequest).getContent();
         FestivalResponseDTO.FestivalPreViewListDTO responseDTO = generateFestivalPreviewListDTO(festivals, limit);
 
         // Redis에 결과 캐싱 (TTL 10분 설정)
