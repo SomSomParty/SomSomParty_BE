@@ -2,7 +2,7 @@ package com.acc.somsomparty.domain.chatting.eventListener;
 
 import com.acc.somsomparty.domain.chatting.dto.ChatRoomCreateEvent;
 import com.acc.somsomparty.domain.chatting.entity.ChatRoom;
-import com.acc.somsomparty.domain.chatting.repository.ChatRoomRepository;
+import com.acc.somsomparty.domain.chatting.repository.jpa.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
